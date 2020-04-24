@@ -1,0 +1,110 @@
+module my8051 (
+	clk, rst, //basic signal
+	cpu_en, cpu_restart,//cpu control signal
+	p0, p1, p2, p3 //port
+);
+
+// define pin
+input 			clk, rst; //basic signal
+input          cpu_en, cpu_restart;//cpu control signal
+inout [ 7: 0]	p0, p1, p2, p3; //port
+
+
+// define wire***************************/
+// rom
+wire 				    rom_en;
+wire 	   [15: 0]	 rom_addr;
+wire		[ 7: 0]	 rom_data;
+wire				    rom_vld;
+
+// ram
+//read
+wire 	   [15: 0]	 ram_rd_addr;
+wire		[ 7: 0]	 ram_rd_data;
+wire               ram_rd_vld;
+wire		[ 7: 0]	 data_rd_data;
+wire               data_rd_vld;
+wire		[ 7: 0]	 xdata_rd_data;
+wire               xdata_rd_vld;
+
+wire 				    data_rd_en;
+wire 				    xdata_rd_en;
+
+// write
+wire 	   [15: 0]	 ram_wr_addr;
+wire		[ 7: 0]	 ram_wr_data;
+
+wire 				    data_wr_en;
+wire 				    xdata_wr_en;
+
+// end of define wire********************/
+
+core core(
+	.clk(clk),
+	.rst(rst),
+	.cpu_en(cpu_en),
+	.cpu_restart(cpu_restart),
+   .rom_en(rom_en),
+	.rom_addr(rom_addr),
+	.rom_data(rom_data),
+	.rom_vld(rom_vld),
+   .ram_rd_addr(ram_rd_addr[7:0]),
+	.ram_rd_data(ram_rd_data),
+	.ram_rd_vld(ram_rd_vld),
+	.data_rd_en(data_rd_en),
+   .xdata_rd_en(xdata_rd_en),
+   .ram_wr_addr(ram_wr_addr[7:0]),
+	.ram_wr_data(ram_wr_data),
+	.data_wr_en(data_wr_en),
+	.xdata_wr_en(xdata_wr_en)
+);
+
+rom rom(
+	.clk(clk),
+	.rd_en(rom_en),
+	.rd_addr(rom_addr),
+	.rd_data(rom_data),
+	.rd_vld(rom_vld)
+);
+
+data data(
+	.clk(clk),
+	.rst(rst),
+   .rd_addr(ram_rd_addr[7:0]),
+   .wr_addr(ram_wr_addr[7:0]),
+	.rd_en(data_rd_en),
+	.rd_data(data_rd_data),
+	.rd_vld(data_rd_vld),
+	.wr_en(data_wr_en),
+	.wr_data(ram_wr_data),
+	.p0(p0),
+	.p1(p1),
+	.p2(p2),
+	.p3(p3)
+);
+
+xdata xdata(
+	.clk(clk),
+   .rd_addr(ram_rd_addr),
+   .wr_addr(ram_wr_addr),
+	.rd_en(xdata_rd_en),
+	.rd_data(xdata_rd_data),
+	.rd_vld(xdata_rd_vld),
+	.wr_en(xdata_wr_en),
+	.wr_data(ram_wr_data)
+);
+
+ram_data_mux ram_data_mux(
+	.data_rd_en(data_rd_en), 
+	.xdata_rd_en(xdata_rd_en),
+	.data_rd_data(data_rd_data), 
+	.xdata_rd_data(xdata_rd_data),
+	.data_rd_vld(data_rd_vld), 
+	.xdata_rd_vld(xdata_rd_vld),
+	.ram_rd_data(ram_rd_data), 
+	.ram_rd_vld(ram_rd_vld)
+);
+
+
+
+endmodule 

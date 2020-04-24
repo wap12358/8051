@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sat Apr 25 03:34:28 2020
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : my8051
+Top-level Entity Name : my8051
+Family : Cyclone IV E
+Total logic elements : 1,414
+    Total combinational functions : 1,364
+    Dedicated logic registers : 135
+Total registers : 135
+Total pins : 10
+Total virtual pins : 0
+Total memory bits : 66,560
+Embedded Multiplier 9-bit elements : 1
+Total PLLs : 0

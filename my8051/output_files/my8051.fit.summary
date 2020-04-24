@@ -1,0 +1,16 @@
+Fitter Status : Successful - Sat Apr 25 03:35:13 2020
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : my8051
+Top-level Entity Name : my8051
+Family : Cyclone IV E
+Device : EP4CE22F17C6
+Timing Models : Final
+Total logic elements : 1,379 / 22,320 ( 6 % )
+    Total combinational functions : 1,364 / 22,320 ( 6 % )
+    Dedicated logic registers : 135 / 22,320 ( < 1 % )
+Total registers : 135
+Total pins : 10 / 154 ( 6 % )
+Total virtual pins : 0
+Total memory bits : 66,560 / 608,256 ( 11 % )
+Embedded Multiplier 9-bit elements : 1 / 132 ( < 1 % )
+Total PLLs : 0 / 4 ( 0 % )
